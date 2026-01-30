@@ -1,0 +1,264 @@
+/* Tema MEDIHELP - Paleta de referencia */
+:root {
+    --bg-page: #f4f6f8;
+    --card-bg: #ffffff;
+    --accent-teal: #0d9488;
+    --accent-teal-dark: #0f766e;
+    --accent-orange: #ea580c;
+    --accent-orange-focus: #f97316;
+    --btn-primary: #6b21a8;
+    --btn-primary-hover: #7c3aed;
+    --text-label: #374151;
+    --text-muted: #6b7280;
+    --border-input: #d1d5db;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg-page);
+    margin: 0;
+    padding: 24px 16px;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+}
+
+/* Header tipo logo */
+.form-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.logo-img {
+    max-width: 220px;
+    height: auto;
+    display: block;
+}
+
+.form-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    margin: 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+h2 {
+    text-align: center;
+    color: var(--accent-teal);
+}
+
+.section-title {
+    margin-top: 25px;
+    font-weight: bold;
+    color: var(--text-label);
+    border-bottom: 2px solid var(--accent-teal);
+    padding-bottom: 6px;
+}
+
+.form-group {
+    margin-top: 14px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-label);
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 4px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-label);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.inline {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.inline label {
+    font-weight: normal;
+    color: var(--text-label);
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+}
+
+/* Botón principal - morado */
+button {
+    margin-top: 24px;
+    padding: 12px 28px;
+    background: var(--btn-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: var(--btn-primary-hover);
+}
+
+footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Firmas */
+.signature-block {
+    margin-top: 14px;
+}
+
+.signature-block label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.signature-pad {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: 120px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    background: #fafafa;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.signature-pad:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+}
+
+.signature-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-limpiar {
+    padding: 8px 14px;
+    background: var(--text-muted);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-top: 0;
+}
+
+.btn-limpiar:hover {
+    background: var(--text-label);
+}
+
+/* Adjuntos */
+.form-group-adjunto {
+    margin-top: 20px;
+}
+
+.input-file {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.input-file:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+.archivo-info {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--accent-teal);
+}
+
+.archivo-info.error {
+    color: #dc2626;
+}
