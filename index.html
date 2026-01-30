@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="container">
+<form id="formSolicitud" class="container">
 
     <header class="form-header">
         <div class="logo">
@@ -34,79 +34,79 @@
 
     <div class="form-group">
         <label>Nombre del Paciente</label>
-        <input type="text" required>
+        <input type="text" name="nombre_paciente" id="nombrePacienteForm" required>
     </div>
 
     <div class="form-group">
         <label>No. Documento</label>
-        <input type="text">
+        <input type="text" name="no_documento" id="noDocumento">
     </div>
 
     <div class="form-group">
         <label>Tipo Documento</label>
         <div class="inline">
-            <label><input type="radio" name="tipo_doc"> CC</label>
-            <label><input type="radio" name="tipo_doc"> TI</label>
-            <label><input type="radio" name="tipo_doc"> RC</label>
-            <label><input type="radio" name="tipo_doc"> CE</label>
-            <label><input type="radio" name="tipo_doc"> Pasaporte</label>
+            <label><input type="radio" name="tipo_doc" value="CC"> CC</label>
+            <label><input type="radio" name="tipo_doc" value="TI"> TI</label>
+            <label><input type="radio" name="tipo_doc" value="RC"> RC</label>
+            <label><input type="radio" name="tipo_doc" value="CE"> CE</label>
+            <label><input type="radio" name="tipo_doc" value="Pasaporte"> Pasaporte</label>
         </div>
     </div>
 
     <div class="form-group">
         <label>Entidad Aseguradora</label>
-        <input type="text">
+        <input type="text" name="entidad_aseguradora" id="entidadAseguradora">
     </div>
 
     <div class="form-group">
         <label>Fecha de última atención</label>
-        <input type="date">
+        <input type="date" name="fecha_ultima_atencion" id="fechaUltimaAtencion">
     </div>
 
     <div class="form-group">
         <label>Correo Electrónico</label>
-        <input type="email">
+        <input type="email" name="correo" id="correo">
     </div>
 
     <div class="form-group">
         <label>Teléfonos</label>
-        <input type="text">
+        <input type="text" name="telefonos" id="telefonos">
     </div>
 
     <div class="section-title">Documento Solicitado</div>
 
-    <div class="checkbox-group">
-        <label><input type="checkbox"> Historia Clínica Total</label>
-        <label><input type="checkbox"> Historia Clínica Parcial</label>
-        <label><input type="checkbox"> Epicrisis</label>
-        <label><input type="checkbox"> Descripción quirúrgica</label>
-        <label><input type="checkbox"> Resultados</label>
-        <label><input type="checkbox"> Fórmula</label>
-        <label><input type="checkbox"> Otros</label>
+    <div class="checkbox-group" id="docSolicitadoGroup">
+        <label><input type="checkbox" name="doc_solicitado" value="Historia Clínica Total"> Historia Clínica Total</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Historia Clínica Parcial"> Historia Clínica Parcial</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Epicrisis"> Epicrisis</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Descripción quirúrgica"> Descripción quirúrgica</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Resultados"> Resultados</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Fórmula"> Fórmula</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Otros"> Otros</label>
     </div>
 
     <div class="form-group">
         <label>Especifique partes y/o fecha requerida</label>
-        <textarea rows="3"></textarea>
+        <textarea rows="3" name="especifique_partes" id="especifiquePartes"></textarea>
     </div>
 
     <div class="section-title">Motivo de la Solicitud</div>
 
-    <div class="checkbox-group">
-        <label><input type="checkbox"> Tramitar documento ante su EPS</label>
-        <label><input type="checkbox"> Obtener información de su enfermedad</label>
-        <label><input type="checkbox"> Desea cambiar de médico tratante</label>
-        <label><input type="checkbox"> Otro trámite</label>
+    <div class="checkbox-group" id="motivoSolicitudGroup">
+        <label><input type="checkbox" name="motivo_solicitud" value="Tramitar documento ante su EPS"> Tramitar documento ante su EPS</label>
+        <label><input type="checkbox" name="motivo_solicitud" value="Obtener información de su enfermedad"> Obtener información de su enfermedad</label>
+        <label><input type="checkbox" name="motivo_solicitud" value="Desea cambiar de médico tratante"> Desea cambiar de médico tratante</label>
+        <label><input type="checkbox" name="motivo_solicitud" value="Otro trámite"> Otro trámite</label>
     </div>
 
     <div class="form-group">
         <label>¿Cuál?</label>
-        <input type="text">
+        <input type="text" name="cual_otro" id="cualOtro">
     </div>
 
     <div class="form-group signature-block">
         <label>Firma del Paciente o Solicitante (escriba nombre)</label>
-        <input type="text" id="nombrePaciente" placeholder="Nombre completo">
+        <input type="text" id="nombrePaciente" name="nombre_firma" placeholder="Nombre completo">
         <label style="margin-top:10px; font-weight:normal;">Dibuje su firma abajo:</label>
         <canvas id="firmaPaciente" class="signature-pad" width="400" height="120"></canvas>
         <div class="signature-actions">
@@ -117,13 +117,13 @@
     <div id="seccion-tercero" class="seccion-tercero" style="display:none;">
         <div class="form-group">
             <label>Nombre de quien solicita</label>
-            <input type="text">
+            <input type="text" name="nombre_solicitante" id="nombreSolicitante">
         </div>
         <div class="section-title">Diligenciado por la Clínica (si es por tercero)</div>
 
         <div class="checkbox-group">
-            <label><input type="checkbox"> Trae carta de autorización</label>
-            <label><input type="checkbox"> Trae copia de documentos</label>
+            <label><input type="checkbox" name="trae_carta" value="si"> Trae carta de autorización</label>
+            <label><input type="checkbox" name="trae_copia_docs" value="si"> Trae copia de documentos</label>
         </div>
 
         <div class="form-group signature-block">
@@ -138,40 +138,52 @@
 
         <div class="form-group">
             <label>Nombre del Paciente</label>
-            <input type="text">
+            <input type="text" name="nombre_paciente_tercero" id="nombrePacienteTercero">
         </div>
 
         <div class="form-group">
             <label>Fecha de entrega</label>
-            <input type="date">
+            <input type="date" name="fecha_entrega" id="fechaEntrega">
         </div>
 
         <div class="form-group form-group-adjunto">
-            <label>Cédula del tercero (solo PDF)</label>
+            <label>Cédula del tercero (solo PDF) <span class="required">*</span></label>
             <input type="file" id="cedulaTercero" name="cedula_tercero" accept="application/pdf,.pdf" class="input-file">
             <span class="archivo-info" id="infoCedulaTercero"></span>
         </div>
     </div>
 
     <div class="form-group form-group-adjunto">
-        <label>Cédula del paciente (solo PDF)</label>
-        <input type="file" id="cedulaPaciente" name="cedula_paciente" accept="application/pdf,.pdf" class="input-file">
+        <label>Cédula del paciente (solo PDF) <span class="required">*</span></label>
+        <input type="file" id="cedulaPaciente" name="cedula_paciente" accept="application/pdf,.pdf" class="input-file" required>
         <span class="archivo-info" id="infoCedulaPaciente"></span>
     </div>
 
-    <button onclick="enviarFormulario()">Enviar Solicitud</button>
+    <button type="submit">Enviar Solicitud</button>
+
+    <p class="admin-link-wrap">
+        <a href="admin.html" class="admin-link">Administrar solicitudes →</a>
+    </p>
 
     <footer>
         <p><b>Para tener en cuenta:</b></p>
         <ul>
-            <li>Entrega personal o con autorización escrita.</li>
-            <li>Trámite de dos días hábiles.</li>
-            <li>Presentar recibo de pago.</li>
-            <li>Entrega en CD ($7.000).</li>
-            <li>Impresiones físicas: $10.000 hasta 10 páginas.</li>
+            <li>Entrega via correo electrónico.</li>
+            <li>Trámite de cinco (5) días hábiles.</li>
         </ul>
     </footer>
 
+</form>
+
+<!-- Modal éxito -->
+<div class="modal-exito-overlay" id="modalExito">
+    <div class="modal-exito">
+        <div class="modal-exito-icono">✓</div>
+        <h3 class="modal-exito-titulo">Solicitud registrada</h3>
+        <p class="modal-exito-mensaje">Su solicitud ha sido enviada correctamente.</p>
+        <p class="modal-exito-ref">N° de referencia: <strong id="modalRefId"></strong></p>
+        <button type="button" class="modal-exito-btn" id="modalExitoCerrar">Aceptar</button>
+    </div>
 </div>
 
 <script src="js/app.js"></script>

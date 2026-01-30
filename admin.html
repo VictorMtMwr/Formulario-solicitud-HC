@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Solicitudes - MEDIHELP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+<div class="admin-wrap">
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <a href="index.html" class="admin-back">← Volver al formulario</a>
+            <div class="admin-title-wrap">
+                <img src="assets/descarga.png" alt="MEDIHELP" class="admin-logo">
+                <h1>Gestión de Solicitudes HC</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="admin-toolbar">
+            <div class="filtros">
+                <select id="filtroEstado" class="filtro-select">
+                    <option value="">Todos los estados</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="en_proceso">En proceso</option>
+                    <option value="completada">Completada</option>
+                    <option value="rechazada">Rechazada</option>
+                </select>
+                <input type="text" id="busqueda" class="filtro-busqueda" placeholder="Buscar por paciente, documento...">
+            </div>
+            <div class="stats">
+                <span class="stat" id="statPendientes">0 pendientes</span>
+                <span class="stat" id="statTotal">0 total</span>
+            </div>
+        </div>
+
+        <div class="solicitudes-list" id="solicitudesList">
+            <p class="empty-state" id="emptyState">No hay solicitudes registradas.</p>
+        </div>
+    </main>
+</div>
+
+<!-- Modal detalle -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalDetalle">
+        <div class="modal-header">
+            <h2 id="modalTitulo">Detalle de solicitud</h2>
+            <button type="button" class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Contenido dinámico -->
+        </div>
+        <div class="modal-footer" id="modalFooter">
+            <select id="cambiarEstado" class="estado-select">
+                <option value="pendiente">Pendiente</option>
+                <option value="en_proceso">En proceso</option>
+                <option value="completada">Completada</option>
+                <option value="rechazada">Rechazada</option>
+            </select>
+            <button type="button" class="btn-guardar-estado" id="btnGuardarEstado">Actualizar estado</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+/* Panel de administración - Gestión de solicitudes */
+body.admin-page {
+    display: block;
+    padding: 0;
+}
+
+.admin-wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.admin-wrap body {
+    display: block;
+}
+
+.admin-header {
+    background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-dark) 100%);
+    color: white;
+    padding: 20px 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.admin-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-back {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.admin-back:hover {
+    color: white;
+}
+
+.admin-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.admin-logo {
+    max-height: 48px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+.admin-title-wrap h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.admin-main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    width: 100%;
+}
+
+.admin-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.filtros {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filtro-select {
+    padding: 10px 14px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: white;
+    min-width: 160px;
+}
+
+.filtro-busqueda {
+    padding: 10px 14px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    min-width: 220px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.stat {
+    padding: 6px 12px;
+    background: #f3f4f6;
+    border-radius: 6px;
+}
+
+.solicitudes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solicitud-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.solicitud-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-teal);
+}
+
+.solicitud-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.solicitud-card-titulo {
+    font-weight: 600;
+    color: var(--text-label);
+    font-size: 1.05rem;
+    margin: 0 0 4px 0;
+}
+
+.solicitud-card-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.solicitud-card-body {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--text-label);
+}
+
+.solicitud-card-body p {
+    margin: 4px 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-pendiente { background: #fef3c7; color: #92400e; }
+.badge-en_proceso { background: #dbeafe; color: #1e40af; }
+.badge-completada { background: #d1fae5; color: #065f46; }
+.badge-rechazada { background: #fee2e2; color: #991b1b; }
+
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-overlay.activo {
+    display: flex;
+}
+
+.modal {
+    background: white;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--accent-teal);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--text-label);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-body .detalle-row {
+    margin-bottom: 14px;
+}
+
+.modal-body .detalle-label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-body .detalle-value {
+    font-size: 0.95rem;
+    margin-top: 2px;
+}
+
+.modal-body .firma-preview {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    margin-top: 4px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.estado-select {
+    padding: 10px 14px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.btn-guardar-estado {
+    padding: 10px 20px;
+    background: var(--accent-teal);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-guardar-estado:hover {
+    background: var(--accent-teal-dark);
+}
+
+/* Responsive admin */
+@media (max-width: 576px) {
+    .admin-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtros {
+        flex-direction: column;
+    }
+
+    .filtro-select, .filtro-busqueda {
+        min-width: 100%;
+    }
+
+    .solicitud-card-header {
+        flex-direction: column;
+    }
+}
