@@ -1,4 +1,10 @@
 /* Tema MEDIHELP - Paleta de referencia */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
     --bg-page: #f4f6f8;
     --card-bg: #ffffff;
@@ -14,18 +20,29 @@
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: var(--bg-page);
     margin: 0;
     padding: 24px 16px;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0;
+    flex-shrink: 0;
     background: var(--card-bg);
     padding: 32px;
     border-radius: 12px;
@@ -261,4 +278,177 @@ footer {
 
 .archivo-info.error {
     color: #dc2626;
+}
+
+/* ========== RESPONSIVE ========== */
+
+/* Tablets (768px y menos) */
+@media (max-width: 768px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    .container {
+        padding: 24px 20px;
+    }
+
+    .form-title {
+        font-size: 1.15rem;
+    }
+
+    .logo-img {
+        max-width: 180px;
+    }
+
+    .inline {
+        gap: 16px;
+    }
+
+    .checkbox-group {
+        gap: 12px;
+    }
+}
+
+/* Teléfonos (576px y menos) */
+@media (max-width: 576px) {
+    body {
+        padding: 12px 8px;
+    }
+
+    .container {
+        padding: 20px 16px;
+        border-radius: 8px;
+    }
+
+    .form-header {
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+    }
+
+    .logo-img {
+        max-width: 160px;
+    }
+
+    .form-title {
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
+    /* Radio buttons: apilar o menos espacio */
+    .inline {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .inline label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: border-color 0.2s, background 0.2s;
+    }
+
+    .inline label:has(input:checked) {
+        background: rgba(13, 148, 136, 0.08);
+        border-color: var(--accent-teal);
+    }
+
+    .inline input {
+        margin: 0;
+    }
+
+    /* Checkboxes más cómodos para tacto */
+    .checkbox-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .checkbox-group label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: #f9fafb;
+        border-radius: 8px;
+        min-height: 44px;
+        cursor: pointer;
+    }
+
+    .checkbox-group input {
+        min-width: 20px;
+        min-height: 20px;
+        margin: 0;
+    }
+
+    /* Inputs más grandes para tacto */
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    textarea,
+    select {
+        padding: 12px 14px;
+        font-size: 16px; /* Evita zoom en iOS */
+        min-height: 44px;
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+
+    .section-title {
+        font-size: 0.95rem;
+        margin-top: 20px;
+    }
+
+    /* Canvas de firma responsive */
+    .signature-pad {
+        max-width: 100%;
+        min-height: 100px;
+        height: 100px;
+    }
+
+    .signature-block label {
+        font-size: 0.9rem;
+    }
+
+    /* Botón ancho completo y área táctil amplia */
+    button {
+        width: 100%;
+        padding: 14px 20px;
+        min-height: 48px;
+        font-size: 1rem;
+        margin-top: 20px;
+    }
+
+    .btn-limpiar {
+        padding: 10px 16px;
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    /* Input file */
+    .input-file {
+        max-width: 100%;
+        padding: 12px;
+    }
+
+    footer {
+        margin-top: 24px;
+        padding-top: 16px;
+        font-size: 12px;
+    }
+}
+
+/* Pantallas muy pequeñas (400px y menos) */
+@media (max-width: 400px) {
+    .container {
+        padding: 16px 12px;
+    }
+
+    .form-title {
+        font-size: 0.95rem;
+    }
 }
