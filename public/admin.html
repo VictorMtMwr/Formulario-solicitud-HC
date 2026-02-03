@@ -11,11 +11,11 @@
 <div class="admin-wrap">
     <header class="admin-header">
         <div class="admin-header-content">
-            <a href="index.html" class="admin-back">← Volver al formulario</a>
-            <div class="admin-title-wrap">
+            <a href="index.html" class="admin-logo-link">
                 <img src="assets/descarga.png" alt="MEDIHELP" class="admin-logo">
-                <h1>Gestión de Solicitudes HC</h1>
-            </div>
+            </a>
+            <h1 class="admin-title">Gestión de Solicitudes HC</h1>
+            <button type="button" class="admin-logout" id="btnLogout">Cerrar sesión</button>
         </div>
     </header>
 
@@ -53,6 +53,29 @@
         <div class="modal-body" id="modalBody">
             <!-- Contenido dinámico -->
         </div>
+        
+        <!-- Sección de diligenciamiento por la clínica (solo para solicitudes por tercero) -->
+        <div class="modal-clinica" id="seccionClinica" style="display:none;">
+            <h3 class="modal-clinica-titulo">Diligenciado por la Clínica</h3>
+            <div class="clinica-checks">
+                <label><input type="checkbox" id="adminTraeCarta"> Trae carta de autorización</label>
+                <label><input type="checkbox" id="adminTraeCopiaDocs"> Trae copia de documentos</label>
+            </div>
+            <div class="clinica-campo">
+                <label>Funcionario que recibe y verifica</label>
+                <input type="text" id="adminNombreFuncionario" placeholder="Nombre del funcionario">
+            </div>
+            <div class="clinica-campo">
+                <label>Firma del funcionario</label>
+                <canvas id="adminFirmaFuncionario" class="signature-pad-admin" width="400" height="100"></canvas>
+                <button type="button" class="btn-limpiar-admin" id="btnLimpiarFirmaAdmin">Limpiar firma</button>
+            </div>
+            <div class="clinica-campo">
+                <label>Fecha de entrega</label>
+                <input type="date" id="adminFechaEntrega">
+            </div>
+        </div>
+        
         <div class="modal-footer" id="modalFooter">
             <select id="cambiarEstado" class="estado-select">
                 <option value="pendiente">Pendiente</option>
@@ -60,7 +83,23 @@
                 <option value="completada">Completada</option>
                 <option value="rechazada">Rechazada</option>
             </select>
-            <button type="button" class="btn-guardar-estado" id="btnGuardarEstado">Actualizar estado</button>
+            <button type="button" class="btn-guardar" id="btnGuardarEstado">Guardar cambios</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para visualizar PDF -->
+<div class="modal-overlay modal-pdf-overlay" id="modalPdfOverlay">
+    <div class="modal modal-pdf">
+        <div class="modal-header">
+            <h2 id="modalPdfTitulo">Documento PDF</h2>
+            <button type="button" class="modal-close" id="modalPdfClose">&times;</button>
+        </div>
+        <div class="modal-pdf-body">
+            <iframe id="pdfViewer" src="" frameborder="0"></iframe>
+        </div>
+        <div class="modal-footer">
+            <a href="#" id="pdfDownloadLink" class="btn-descargar" download>Descargar PDF</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,37 @@
+# Configuración Nginx para Formulario Solicitud HC
+# Copiar a: sudo cp nginx.conf.example /etc/nginx/sites-available/formulario-hc
+# Habilitar: sudo ln -sf /etc/nginx/sites-available/formulario-hc /etc/nginx/sites-enabled/
+# Probar: sudo nginx -t
+# Recargar: sudo systemctl reload nginx
+
+server {
+    listen 80;
+    server_name localhost;  # Cambiar por tu dominio o IP (ej: formulario.tudominio.com)
+
+    # Logs
+    access_log /var/log/nginx/formulario-hc-access.log;
+    error_log  /var/log/nginx/formulario-hc-error.log;
+
+    # Tamaño máximo para subida de archivos (PDFs y firmas)
+    client_max_body_size 10M;
+
+    # Proxy a Node.js (puerto 3000)
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    # Archivos estáticos (opcional, para mejor rendimiento)
+    # Descomenta si quieres que Nginx sirva directamente CSS, JS e imágenes
+    # location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+    #     proxy_pass http://127.0.0.1:3000;
+    #     proxy_cache_valid 200 1h;
+    # }
+}

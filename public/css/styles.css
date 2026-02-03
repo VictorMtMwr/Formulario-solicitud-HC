@@ -119,6 +119,7 @@ label {
 
 input[type="text"],
 input[type="email"],
+input[type="tel"],
 input[type="date"],
 textarea,
 select {
@@ -134,12 +135,14 @@ select {
 
 input[type="text"]::placeholder,
 input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
 textarea::placeholder {
     color: var(--text-muted);
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
+input[type="tel"]:focus,
 input[type="date"]:focus,
 textarea:focus,
 select:focus {
@@ -409,6 +412,7 @@ footer {
     /* Inputs más grandes para tacto */
     input[type="text"],
     input[type="email"],
+    input[type="tel"],
     input[type="date"],
     textarea,
     select {

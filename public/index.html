@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form id="formSolicitud" class="container">
+<form id="formSolicitud" class="container" novalidate>
 
     <header class="form-header">
         <div class="logo">
@@ -64,13 +64,13 @@
     </div>
 
     <div class="form-group">
-        <label>Correo Electrónico</label>
-        <input type="email" name="correo" id="correo">
+        <label>Correo Electrónico <span class="required">*</span></label>
+        <input type="email" name="correo" id="correo" required>
     </div>
 
     <div class="form-group">
-        <label>Teléfonos</label>
-        <input type="text" name="telefonos" id="telefonos">
+        <label>Teléfonos <span class="required">*</span></label>
+        <input type="tel" name="telefonos" id="telefonos" required>
     </div>
 
     <div class="section-title">Documento Solicitado</div>
@@ -79,6 +79,7 @@
         <label><input type="checkbox" name="doc_solicitado" value="Historia Clínica Total"> Historia Clínica Total</label>
         <label><input type="checkbox" name="doc_solicitado" value="Historia Clínica Parcial"> Historia Clínica Parcial</label>
         <label><input type="checkbox" name="doc_solicitado" value="Epicrisis"> Epicrisis</label>
+        <label><input type="checkbox" name="doc_solicitado" value="Certificado de hospitalización"> Certificado de hospitalización</label>
         <label><input type="checkbox" name="doc_solicitado" value="Descripción quirúrgica"> Descripción quirúrgica</label>
         <label><input type="checkbox" name="doc_solicitado" value="Resultados"> Resultados</label>
         <label><input type="checkbox" name="doc_solicitado" value="Fórmula"> Fórmula</label>
@@ -105,8 +106,7 @@
     </div>
 
     <div class="form-group signature-block">
-        <label>Firma del Paciente o Solicitante (escriba nombre)</label>
-        <input type="text" id="nombrePaciente" name="nombre_firma" placeholder="Nombre completo">
+        <label>Firma del Paciente o Solicitante</label>
         <label style="margin-top:10px; font-weight:normal;">Dibuje su firma abajo:</label>
         <canvas id="firmaPaciente" class="signature-pad" width="400" height="120"></canvas>
         <div class="signature-actions">
@@ -116,34 +116,8 @@
 
     <div id="seccion-tercero" class="seccion-tercero" style="display:none;">
         <div class="form-group">
-            <label>Nombre de quien solicita</label>
-            <input type="text" name="nombre_solicitante" id="nombreSolicitante">
-        </div>
-        <div class="section-title">Diligenciado por la Clínica (si es por tercero)</div>
-
-        <div class="checkbox-group">
-            <label><input type="checkbox" name="trae_carta" value="si"> Trae carta de autorización</label>
-            <label><input type="checkbox" name="trae_copia_docs" value="si"> Trae copia de documentos</label>
-        </div>
-
-        <div class="form-group signature-block">
-            <label>Funcionario que recibe y verifica</label>
-            <input type="text" id="nombreFuncionario" placeholder="Nombre del funcionario">
-            <label style="margin-top:10px; font-weight:normal;">Dibuje su firma abajo:</label>
-            <canvas id="firmaFuncionario" class="signature-pad" width="400" height="120"></canvas>
-            <div class="signature-actions">
-                <button type="button" class="btn-limpiar" onclick="limpiarFirma('firmaFuncionario')">Limpiar firma</button>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Nombre del Paciente</label>
-            <input type="text" name="nombre_paciente_tercero" id="nombrePacienteTercero">
-        </div>
-
-        <div class="form-group">
-            <label>Fecha de entrega</label>
-            <input type="date" name="fecha_entrega" id="fechaEntrega">
+            <label>Nombre de quien solicita (tercero)</label>
+            <input type="text" name="nombre_solicitante" id="nombreSolicitante" required>
         </div>
 
         <div class="form-group form-group-adjunto">
@@ -159,12 +133,7 @@
         <span class="archivo-info" id="infoCedulaPaciente"></span>
     </div>
 
-    <button type="submit">Enviar Solicitud</button>
-
-    <p class="admin-link-wrap">
-        <a href="admin.html" class="admin-link">Administrar solicitudes →</a>
-    </p>
-
+    <button type="submit" id="btnEnviarSolicitud">Enviar Solicitud</button>
     <footer>
         <p><b>Para tener en cuenta:</b></p>
         <ul>

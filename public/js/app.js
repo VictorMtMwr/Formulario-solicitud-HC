@@ -148,15 +148,43 @@
     }
 
     function enviarFormulario(e) {
-        if (e) e.preventDefault();
         var form = document.getElementById('formSolicitud');
-        if (!form || !form.checkValidity()) {
-            form.reportValidity();
+        if (!form) return;
+        var nombre = document.getElementById('nombrePacienteForm');
+        var cedula = document.getElementById('cedulaPaciente');
+        if (!nombre || !nombre.value.trim()) {
+            mostrarError('Por favor ingresa el nombre del paciente.');
+            if (nombre) nombre.focus();
             return;
+        }
+        if (!cedula || !cedula.files || !cedula.files[0]) {
+            mostrarError('Por favor adjunta la cédula del paciente en formato PDF.');
+            if (cedula) cedula.focus();
+            return;
+        }
+        var correo = document.getElementById('correo');
+        var telefonos = document.getElementById('telefonos');
+        if (!correo || !correo.value.trim()) {
+            mostrarError('Por favor ingresa tu correo electrónico.');
+            if (correo) correo.focus();
+            return;
+        }
+        if (!telefonos || !telefonos.value.trim()) {
+            mostrarError('Por favor ingresa tu número de teléfono.');
+            if (telefonos) telefonos.focus();
+            return;
+        }
+        var esTercero = document.getElementById('opcionTercero').checked;
+        if (esTercero) {
+            var cedulaTercero = document.getElementById('cedulaTercero');
+            if (cedulaTercero && cedulaTercero.required && (!cedulaTercero.files || !cedulaTercero.files[0])) {
+                mostrarError('Por favor adjunta la cédula del tercero en formato PDF.');
+                if (cedulaTercero) cedulaTercero.focus();
+                return;
+            }
         }
 
         var firmaPaciente = document.getElementById('firmaPaciente');
-        var firmaFuncionario = document.getElementById('firmaFuncionario');
         var esTercero = document.getElementById('opcionTercero').checked;
 
         var solicitud = {
@@ -175,7 +203,7 @@
             especifiquePartes: document.getElementById('especifiquePartes').value,
             motivosSolicitud: getCheckedValues('motivo_solicitud'),
             cualOtro: document.getElementById('cualOtro').value,
-            nombreFirma: document.getElementById('nombrePaciente').value,
+            nombreFirma: null,
             firmaPaciente: firmaPaciente ? firmaPaciente.toDataURL('image/png') : null,
             cedulaPaciente: (document.getElementById('cedulaPaciente').files[0] || {}).name || null,
             estado: 'pendiente'
@@ -183,37 +211,76 @@
 
         if (esTercero) {
             solicitud.nombreSolicitante = document.getElementById('nombreSolicitante').value;
-            solicitud.traeCarta = document.querySelector('input[name="trae_carta"]:checked') ? 'si' : '';
-            solicitud.traeCopiaDocs = document.querySelector('input[name="trae_copia_docs"]:checked') ? 'si' : '';
-            solicitud.nombreFuncionario = document.getElementById('nombreFuncionario').value;
-            solicitud.firmaFuncionario = firmaFuncionario ? firmaFuncionario.toDataURL('image/png') : null;
-            solicitud.nombrePacienteTercero = document.getElementById('nombrePacienteTercero').value;
-            solicitud.fechaEntrega = document.getElementById('fechaEntrega').value;
             solicitud.cedulaTercero = (document.getElementById('cedulaTercero').files[0] || {}).name || null;
         }
 
-        var solicitudes = JSON.parse(localStorage.getItem('solicitudesHC') || '[]');
-        solicitudes.unshift(solicitud);
-        localStorage.setItem('solicitudesHC', JSON.stringify(solicitudes));
+        var btnSubmit = form.querySelector('button[type="submit"]');
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = 'Enviando...';
+        }
 
-        /* Reiniciar todos los campos */
-        form.reset();
-        initFecha();
+        // Crear FormData para enviar archivos
+        var formData = new FormData();
+        formData.append('data', JSON.stringify(solicitud));
+        
+        // Agregar archivos PDF
+        var cedulaPacienteFile = document.getElementById('cedulaPaciente').files[0];
+        if (cedulaPacienteFile) {
+            formData.append('cedulaPaciente', cedulaPacienteFile);
+        }
+        
+        if (esTercero) {
+            var cedulaTerceroFile = document.getElementById('cedulaTercero').files[0];
+            if (cedulaTerceroFile) {
+                formData.append('cedulaTercero', cedulaTerceroFile);
+            }
+        }
 
-        var infoCedulaPaciente = document.getElementById('infoCedulaPaciente');
-        var infoCedulaTercero = document.getElementById('infoCedulaTercero');
-        if (infoCedulaPaciente) infoCedulaPaciente.textContent = '';
-        if (infoCedulaTercero) infoCedulaTercero.textContent = '';
+        fetch('/api/solicitudes', {
+            method: 'POST',
+            body: formData,
+            credentials: 'same-origin'
+        })
+            .then(function (res) {
+                return res.text().then(function (text) {
+                    var data;
+                    try { data = JSON.parse(text); } catch (e) { data = { message: text || 'Error del servidor' }; }
+                    return { ok: res.ok, data: data };
+                });
+            })
+            .then(function (result) {
+                if (result.ok) {
+                    form.reset();
+                    initFecha();
+                    var infoCedulaPaciente = document.getElementById('infoCedulaPaciente');
+                    var infoCedulaTercero = document.getElementById('infoCedulaTercero');
+                    if (infoCedulaPaciente) infoCedulaPaciente.textContent = '';
+                    if (infoCedulaTercero) infoCedulaTercero.textContent = '';
+                    var seccionTercero = document.getElementById('seccion-tercero');
+                    var cedulaTercero = document.getElementById('cedulaTercero');
+                    if (seccionTercero) seccionTercero.style.display = 'none';
+                    if (cedulaTercero) cedulaTercero.required = false;
+                    limpiarFirma('firmaPaciente');
+                    mostrarModalExito(solicitud.id);
+                } else {
+                    mostrarError(result.data.message || result.data.error || 'Error al enviar la solicitud.');
+                }
+            })
+            .catch(function (err) {
+                console.error('Error enviando solicitud:', err);
+                mostrarError('No se pudo conectar con el servidor. Verifica que el servidor esté en marcha.');
+            })
+            .finally(function () {
+                if (btnSubmit) {
+                    btnSubmit.disabled = false;
+                    btnSubmit.textContent = 'Enviar Solicitud';
+                }
+            });
+    }
 
-        var seccionTercero = document.getElementById('seccion-tercero');
-        var cedulaTercero = document.getElementById('cedulaTercero');
-        if (seccionTercero) seccionTercero.style.display = 'none';
-        if (cedulaTercero) cedulaTercero.required = false;
-
-        limpiarFirma('firmaPaciente');
-        limpiarFirma('firmaFuncionario');
-
-        mostrarModalExito(solicitud.id);
+    function mostrarError(mensaje) {
+        alert(mensaje);
     }
 
     function mostrarModalExito(refId) {
@@ -231,7 +298,12 @@
     function initFormSubmit() {
         var form = document.getElementById('formSolicitud');
         if (form) {
-            form.addEventListener('submit', enviarFormulario);
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                enviarFormulario(e);
+                return false;
+            }, true);
         }
 
         var btnCerrar = document.getElementById('modalExitoCerrar');

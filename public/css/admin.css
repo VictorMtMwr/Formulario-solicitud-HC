@@ -25,36 +25,33 @@ body.admin-page {
 .admin-header-content {
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.admin-back {
-    display: inline-block;
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-}
-
-.admin-back:hover {
-    color: white;
-}
-
-.admin-title-wrap {
     display: flex;
-    align-items: center;
-    gap: 16px;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.admin-logout {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: -6px;
+}
+
+.admin-logout:hover {
+    background: rgba(255,255,255,0.3);
 }
 
 .admin-logo {
     max-height: 48px;
     width: auto;
     filter: brightness(0) invert(1);
-}
-
-.admin-title-wrap h1 {
-    margin: 0;
-    font-size: 1.5rem;
+    display: block;
 }
 
 .admin-main {
@@ -181,6 +178,45 @@ body.admin-page {
     font-size: 1rem;
 }
 
+.empty-state.error-conexion {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    color: #92400e;
+    max-width: 480px;
+    margin: 24px auto;
+}
+
+.empty-state.error-conexion a {
+    color: var(--accent-teal-dark);
+    font-weight: 600;
+}
+
+.empty-state.error-conexion code {
+    background: rgba(0,0,0,0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Enlaces PDF */
+.pdf-link {
+    color: var(--accent-teal-dark);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #f0f9ff;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.pdf-link:hover {
+    background: #e0f2fe;
+    text-decoration: underline;
+}
+
 /* Modal */
 .modal-overlay {
     display: none;
@@ -207,10 +243,11 @@ body.admin-page {
     max-width: 600px;
     width: 100%;
     max-height: 90vh;
-    overflow: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    margin: auto;
 }
 
 .modal-header {
@@ -219,6 +256,11 @@ body.admin-page {
     align-items: center;
     padding: 20px 24px;
     border-bottom: 1px solid #e5e7eb;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
 }
 
 .modal-header h2 {
@@ -243,8 +285,7 @@ body.admin-page {
 
 .modal-body {
     padding: 24px;
-    overflow-y: auto;
-    flex: 1;
+    flex-shrink: 0;
 }
 
 .modal-body .detalle-row {
@@ -279,6 +320,10 @@ body.admin-page {
     gap: 12px;
     align-items: center;
     flex-wrap: wrap;
+    background: white;
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
 }
 
 .estado-select {
@@ -298,8 +343,161 @@ body.admin-page {
     cursor: pointer;
 }
 
-.btn-guardar-estado:hover {
+.btn-guardar-estado:hover,
+.btn-guardar:hover {
     background: var(--accent-teal-dark);
+}
+
+.btn-guardar {
+    padding: 10px 20px;
+    background: var(--accent-teal);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Sección diligenciamiento clínica */
+.modal-clinica {
+    padding: 20px 24px;
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.modal-clinica-titulo {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    color: var(--accent-teal);
+    font-weight: 600;
+}
+
+.clinica-checks {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.clinica-checks label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.clinica-campo {
+    margin-bottom: 14px;
+}
+
+.clinica-campo label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-label);
+    margin-bottom: 6px;
+}
+
+.clinica-campo input[type="text"],
+.clinica-campo input[type="date"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+.signature-pad-admin {
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+    background: white;
+    display: block;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.btn-limpiar-admin {
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-limpiar-admin:hover {
+    background: #4b5563;
+}
+
+/* Modal PDF Viewer */
+.modal-pdf-overlay {
+    z-index: 1100;
+}
+
+.modal-pdf {
+    max-width: 900px;
+    width: 95%;
+    height: 90vh;
+    max-height: 90vh;
+}
+
+.modal-pdf-body {
+    flex: 1;
+    padding: 0;
+    min-height: 0;
+}
+
+.modal-pdf-body iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.modal-pdf .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-descargar,
+.btn-cerrar-pdf {
+    padding: 12px 24px;
+    vertical-align: middle;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    min-width: 140px;
+}
+
+.btn-descargar {
+    background: var(--accent-teal);
+    color: white;
+}
+
+.btn-descargar:hover {
+    background: var(--accent-teal-dark);
+    color: white;
+}
+
+.btn-cerrar-pdf {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-cerrar-pdf:hover {
+    background: #d1d5db;
 }
 
 /* Responsive admin */
